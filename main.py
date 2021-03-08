@@ -8,7 +8,8 @@ from linebot.exceptions import (
     LineBotApiError, InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, PostbackEvent
+    MessageEvent, TextMessage, TextSendMessage, PostbackEvent, 
+    ButtonsTemplate, PostbackAction
 )
 
 app = Flask(__name__)
@@ -49,11 +50,24 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handle_postback(event):
     if event.postback.data == 'action':
-        line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='postback'))
+        buttons_template = ButtonsTemplate(
+                title='Button Sample',
+                text='Please push buttons',
+                actions=[
+                    PostbackAction(label='button1',data='button1',text="button1"),
+                    PostbackAction(label='button2',data='button2',text="button2")])
+        template_message = TemplateSendMessage(
+                alt_text="Buttons alt text",template=buttons_template)
+        line_bot_api.reply_message(event.reply_token,template_message)
     elif event.postback.data == 'datetime':
         line_bot_api.reply_message(
                 event.reply_token, TextSendMessage(text=event.postback.params['datetime']))
+    elif event.postback.data == 'button1':
+        line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text='pushed button1'))
+    elif event.postback.data == 'button2':
+        line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text='pushed button2'))
 
 if __name__ == "__main__":
 #    app.run()
