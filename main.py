@@ -54,8 +54,8 @@ def handle_postback(event):
                 title='Button Sample',
                 text='Please push buttons',
                 actions=[
-                    PostbackAction(label='button1',data='button1',text="button1"),
-                    PostbackAction(label='button2',data='button2',text="button2")])
+                    PostbackAction(label='button1',data='button1'),
+                    PostbackAction(label='button2',data='button2')])
         template_message = TemplateSendMessage(
                 alt_text="Buttons alt text",template=buttons_template)
         line_bot_api.reply_message(event.reply_token,template_message)
