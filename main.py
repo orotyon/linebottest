@@ -46,6 +46,15 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=event.message.text))
 
+@handler.add(PostbackEvent)
+def handle_postback(event):
+    if event.postback.data == 'action':
+        line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text='postback'))
+    elif event.postback.data == 'datetime':
+        line_bot_api.reply_message(
+                event.reply_token, TextSendMessage(text=event.postback.params['datetime']))
+
 if __name__ == "__main__":
 #    app.run()
     port = int(os.getenv("PORT"))
