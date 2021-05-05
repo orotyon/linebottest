@@ -51,11 +51,11 @@ def handle_message(event):
 def handle_postback(event):
     if event.postback.data == 'action':
         buttons_template = ButtonsTemplate(
-                title='Button Sample',
-                text='Please push buttons',
+                title='よくある質問',
+                text='質問する内容を選択してください',
                 actions=[
-                    PostbackAction(label='button1',data='button1'),
-                    PostbackAction(label='button2',data='button2')])
+                    PostbackAction(label='電源が入っていない',data='button1'),
+                    PostbackAction(label='上記以外',data='button2')])
         template_message = TemplateSendMessage(
                 alt_text="Buttons alt text",template=buttons_template)
         line_bot_api.reply_message(event.reply_token,template_message)
@@ -64,10 +64,10 @@ def handle_postback(event):
                 event.reply_token, TextSendMessage(text=event.postback.params['datetime']))
     elif event.postback.data == 'button1':
         line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='pushed button1'))
+                event.reply_token, TextSendMessage(text='電源を入れてください'))
     elif event.postback.data == 'button2':
         line_bot_api.reply_message(
-                event.reply_token, TextSendMessage(text='pushed button2'))
+                event.reply_token, TextSendMessage(text='よくある質問をご確認ください。\r\nhttps://www.google.com/'))
 
 if __name__ == "__main__":
 #    app.run()
