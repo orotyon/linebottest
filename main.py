@@ -24,6 +24,12 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 def hello_world():
     return "hello world!"
 
+@app.route('/survey')
+def hello():
+    name = "who"
+    #return name
+    return render_template('survey.html', title='アンケート', name=name)
+
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value

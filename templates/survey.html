@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>アンケート</h3>
+こんにちは。{{ name }}さん。
+アンケートにご協力ください
+
+<form>
+    性別
+    <input type="radio" name="example" value="選択肢1" >男
+    <input type="radio" name="example" value="選択肢2">女
+
+    <br>
+    <br>
+
+    <input type="button" name="button" value="回答を送信">
+</form>
+{% endblock %}
